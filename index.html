@@ -244,6 +244,26 @@
         <section class="step"></section>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo
         nulla ac nisi gravida lobortis.
+        <section class="step"></section>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo
+        nulla ac nisi gravida lobortis. Aliquam et pulvinar lacus. Vivamus non
+        lectus vel augue fermentum tristique ut eget felis. Phasellus ac dolor
+        urna. Sed vel egestas neque. Cras fermentum erat a sem pellentesque
+        interdum. Integer sagittis ullamcorper nisi et bibendum. Ut gravida
+        pharetra lorem commodo congue. Etiam vitae elit rutrum, ullamcorper dui
+        a, tempor mauris. Fusce tristique interdum velit, non mattis augue
+        eleifend sit amet. Curabitur fermentum neque non diam molestie, vitae
+        lacinia diam tempus.
+        <section class="step"></section>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo
+        nulla ac nisi gravida lobortis. Aliquam et pulvinar lacus. Vivamus non
+        lectus vel augue fermentum tristique ut eget felis. Phasellus ac dolor
+        urna. Sed vel egestas neque. Cras fermentum erat a sem pellentesque
+        interdum. Integer sagittis ullamcorper nisi et bibendum. Ut gravida
+        pharetra lorem commodo congue. Etiam vitae elit rutrum, ullamcorper dui
+        a, tempor mauris. Fusce tristique interdum velit, non mattis augue
+        eleifend sit amet. Curabitur fermentum neque non diam molestie, vitae
+        lacinia diam tempus.
       </div>
       <div id="vis"></div>
     </div>
@@ -261,8 +281,8 @@
       var projection2 = d3
         .geoMercator()
         .translate([w / 2 + 20, h / 2 - 200])
-        .center([-122.67729, 45.51833])
-        .scale(2000000);
+        .center([-122.67216, 45.51855])
+        .scale(2300000);
 
       path = d3.geoPath().projection(projection);
       path2 = d3.geoPath().projection(projection2);
@@ -551,12 +571,43 @@
             );
           }
         }
+      });
 
-        svg
-          .selectAll("#datacircle")
-          .on("mouseover", mouseOver)
-          .on("mouseout", mouseOut)
-          .on("click", click);
+      function draw1() {
+        d3.select("#vis").selectAll("#main").transition().attr("opacity", 0.5);
+
+        if (typeof simulation !== "undefined") {
+          simulation.stop();
+        }
+
+        d3.selectAll("#datacircle")
+          .transition()
+          .attr("opacity", 1)
+          .attr("r", 5)
+          .attr("stroke-width", 1)
+          .attr("stroke", "black")
+          .attr("cx", function (d) {
+            return projection([+d.Longitude, +d.Latitude])[0];
+          })
+          .attr("cy", function (d) {
+            return projection([+d.Longitude, +d.Latitude])[1];
+          });
+
+        d3.selectAll(".title1")
+          .transition()
+          .attr("x", w - 500)
+          .attr("y", 60)
+          .attr("font-family", "monospace")
+          .attr("font-size", "2.5em")
+          .attr("opacity", 1)
+          .text("May 29 - July 10, 2020");
+        i = 0;
+        d3.selectAll(".label").transition().attr("opacity", 0);
+      }
+
+      function draw2() {
+        d3.selectAll("#dataAnim").remove();
+        d3.selectAll("text").remove();
 
         var circleleg = d3
           .select("#circlelegend")
@@ -697,44 +748,6 @@
           .attr("cy", 314)
           .attr("r", 10)
           .attr("stroke", "black");
-      });
-
-      function draw1() {
-        d3.select("#vis").selectAll("#main").transition().attr("opacity", 0.5);
-
-        if (typeof simulation !== "undefined") {
-          simulation.stop();
-        }
-
-        d3.selectAll("#datacircle")
-          .transition()
-          .attr("opacity", 1)
-          .attr("r", 5)
-          .attr("stroke-width", 1)
-          .attr("stroke", "black")
-          .attr("cx", function (d) {
-            return projection([+d.Longitude, +d.Latitude])[0];
-          })
-          .attr("cy", function (d) {
-            return projection([+d.Longitude, +d.Latitude])[1];
-          });
-
-        d3.selectAll(".title1")
-          .transition()
-          .attr("x", w - 500)
-          .attr("y", 60)
-          .attr("font-family", "monospace")
-          .attr("font-size", "2.5em")
-          .attr("opacity", 1)
-          .text("May 29 - July 10, 2020");
-        i = 0;
-        d3.selectAll(".label").transition().attr("opacity", 0);
-      }
-
-      function draw2() {
-        d3.selectAll("#dataAnim").remove();
-        d3.selectAll("text").remove();
-
         var dow = [
           "Monday",
           "Tuesday",
@@ -806,6 +819,28 @@
           .attr("text-anchor", "middle")
           .attr("opacity", 0)
           .text(dow[6]);
+        svg
+
+          .append("text")
+          .attr("class", "calLabel1")
+          .attr("x", 38)
+          .attr("y", 55)
+          .attr("text-anchor", "middle")
+          .attr("opacity", 0)
+          .attr("font-weight", 700)
+          .attr("font-size", "1.8em")
+          .text("June");
+        svg
+
+          .append("text")
+          .attr("class", "calLabel1")
+          .attr("x", 690 - 365)
+          .attr("y", 470)
+          .attr("text-anchor", "middle")
+          .attr("opacity", 0)
+          .attr("font-weight", 700)
+          .attr("font-size", "1.8em")
+          .text("July");
 
         for (let i = 0; i < 45; i++) {
           svg
@@ -926,6 +961,84 @@
           .text("349 Cases, 34 States, 97 Cities");
 
         d3.selectAll(".label").transition().attr("opacity", 0);
+        d3.json("comb_v2.geojson").then(function (data) {
+          json = data;
+          svg
+            .append("g")
+            .selectAll("path")
+            .data(data.features)
+            .enter()
+            .append("path")
+            .attr("id", "port")
+            .attr("d", path2)
+            .attr("opacity", 0)
+            .attr("fill", function (d) {
+              if (d.properties.fclass === "building") {
+                return "#f2eee9";
+              }
+              if (d.properties.fclass === "water") {
+                return "#aad3df";
+              }
+              if (d.properties.fclass === "park") {
+                return "#c8facc";
+              }
+              if (d.properties.fclass === "primary") {
+                return "#fcd6a4";
+              }
+              if (d.properties.fclass === "secondary") {
+                return "#f7fabf";
+              }
+              if (d.properties.fclass === "tertiary") {
+                return "#f9f2ce";
+              } else {
+                return "white";
+              }
+            })
+            .attr("stroke", function (d) {
+              if (d.properties.fclass === "building") {
+                return "black";
+              }
+              if (d.properties.fclass === "water") {
+                return "#aad3df";
+              }
+              if (d.properties.fclass === "park") {
+                return "#c8facc";
+              }
+              if (d.properties.fclass === "primary") {
+                return "#fcd6a4";
+              }
+              if (d.properties.fclass === "secondary") {
+                return "#f7fabf";
+              }
+              if (d.properties.fclass === "tertiary") {
+                return "#f9f2ce";
+              } else {
+                return "white";
+              }
+            })
+            .attr("stroke-width", function (d) {
+              if (d.properties.fclass === "building") {
+                return 0.2;
+              }
+              if (d.properties.fclass === "water") {
+                return 0.2;
+              }
+              if (d.properties.fclass === "park") {
+                return 0.5;
+              }
+              if (d.properties.fclass === "primary") {
+                return 3;
+              }
+              if (d.properties.fclass === "secondary") {
+                return 2;
+              }
+              if (d.properties.fclass === "tertiary") {
+                return 1;
+              } else {
+                return "white";
+              }
+            });
+        });
       }
       function draw3() {
         svg
@@ -1337,6 +1450,10 @@
       }
 
       function draw5() {
+        d3.selectAll(".numLabel").transition().attr("opacity", 0);
+        d3.selectAll(".cal").transition().attr("opacity", 0);
+        d3.selectAll(".calLabel").transition().attr("opacity", 0);
+        d3.selectAll(".calLabel1").transition().attr("opacity", 0);
         svg
           .append("text")
           .attr("id", "l1")
@@ -1614,6 +1731,7 @@
       }
 
       function draw7() {
+        d3.selectAll("#port").transition().attr("opacity", 0);
         d3.selectAll(".numLabel").transition().attr("opacity", 1);
         d3.selectAll(".cal").transition().attr("opacity", 1);
         d3.selectAll(".label").transition().attr("opacity", 0);
@@ -1622,15 +1740,11 @@
           .attr("opacity", 1)
           .attr("font-family", "monospace")
           .attr("font-size", "1.2em");
-        d3.selectAll("#datacircle")
+        d3.selectAll(".calLabel1")
           .transition()
-          .attr("opacity", function (d) {
-            if (d.City !== "Portland, OR, USA") {
-              return 0;
-            } else {
-              1;
-            }
-          });
+          .attr("opacity", 1)
+          .attr("font-family", "monospace");
+
         var parseTime = d3.timeParse("%d/%m/%Y");
 
         simulation = d3.forceSimulation(
@@ -1647,7 +1761,14 @@
             .duration(500)
             .ease(d3.easeLinear)
             .attr("cx", (d) => d.x)
-            .attr("cy", (d) => d.y);
+            .attr("cy", (d) => d.y)
+            .attr("opacity", function (d) {
+              if (d.City !== "Portland, OR, USA") {
+                return 0;
+              } else {
+                1;
+              }
+            });
         });
 
         nodes = svg.selectAll("#datacircle");
@@ -1679,7 +1800,7 @@
                   return 1160 - 365;
                 }
                 if (d.date.toString() === String(parseTime("06/07/2020"))) {
-                  return 1300 - 365;
+                  return 440 - 365;
                 }
                 if (d.date.toString() === String(parseTime("20/06/2020"))) {
                   return 1160 - 365;
@@ -1783,6 +1904,48 @@
         simulation.alpha(0.9).restart();
       }
 
+      function draw8() {
+        d3.selectAll("#datacircle")
+          .raise()
+          .transition()
+          .duration(1200)
+          .attr("cx", function (d) {
+            return projection2([+d.Longitude, +d.Latitude])[0];
+          })
+          .attr("cy", function (d) {
+            return projection2([+d.Longitude, +d.Latitude])[1];
+          });
+        d3.selectAll(".numLabel").transition().attr("opacity", 0);
+        d3.selectAll(".cal").transition().attr("opacity", 0);
+        d3.selectAll(".calLabel").transition().attr("opacity", 0);
+        d3.selectAll(".calLabel1").transition().attr("opacity", 0);
+        d3.selectAll("#port")
+          .transition()
+          .delay(200)
+          .attr("opacity", function (d) {
+            if (d.properties.fclass === "building") {
+              return 1;
+            }
+            if (d.properties.fclass === "water") {
+              return 0.3;
+            }
+            if (d.properties.fclass === "park") {
+              return 0.8;
+            }
+            if (d.properties.fclass === "primary") {
+              return 1;
+            }
+            if (d.properties.fclass === "secondary") {
+              return 1;
+            }
+            if (d.properties.fclass === "tertiary") {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+      }
+
       let activationFunctions = [
         draw1,
         draw2,
@@ -1791,6 +1954,7 @@
         draw5,
         draw6,
         draw7,
+        draw8,
       ];
 
       ///SCOLLER!@#!@#@!#!@#@!#

@@ -300,44 +300,7 @@
         .attr("width", w)
         .attr("height", h)
         .attr("opacity", 1);
-      svg
-      .append('g')
-      .append('text')
-      .attr('class','port_streets')
-      .attr('transform', 'rotate(20 ' + -1350 + ' ' + (1900) + ')')
-      .attr('font-family','Arial')
-      .attr('font-size','.8em')
-      .attr('opacity',0)
-      .text('Hawthorne Bridge')
-      svg
-      .append('g')
-      .append('text')
-      .attr('class','port_streets')
-      .attr('transform', 'rotate(20 ' + -1150 + ' ' + (1400) + ')')
-      .attr('font-family','Arial')
-      .attr('font-size','.8em')
-      .attr('opacity',0)
-      .text('Main St')
-      svg
-      .append('g')
-      .append('text')
-      .attr('class','port_streets')
-      .attr('transform', 'rotate(20 ' + -600 + ' ' + (2000) + ')')
-      .attr('font-family','Arial')
-      .attr('font-size','.8em')
-      .attr('opacity',0)
-      .text('Morrison Bridge')
-
-      svg
-      .append('g')
-      .append('text')
-      .attr('class','port_streets')
-      .attr('x',710)
-      .attr('y',35)
-      .attr('font-family','Arial')
-      .attr('font-size','.75em')
-      .attr('opacity',0)
-      .text('Burnside Bridge')
+     
 
             svg
         .append("rect")
@@ -833,7 +796,42 @@
             );
           }
         }
-      });
+      })
+      setTimeout(function(){
+        svg
+      .append('text')
+      .attr('class','port_streets')
+      .attr('transform', 'rotate(20 ' + -1350 + ' ' + (1900) + ')')
+      .attr('font-family','Arial')
+      .attr('font-size','.8em')
+      .attr('opacity',0)
+      .text('Hawthorne Bridge')
+      svg
+      .append('text')
+      .attr('class','port_streets')
+      .attr('transform', 'rotate(20 ' + -1150 + ' ' + (1400) + ')')
+      .attr('font-family','Arial')
+      .attr('font-size','.8em')
+      .attr('opacity',0)
+      .text('Main St')
+      svg
+      .append('text')
+      .attr('class','port_streets')
+      .attr('transform', 'rotate(20 ' + -600 + ' ' + (2000) + ')')
+      .attr('font-family','Arial')
+      .attr('font-size','.8em')
+      .attr('opacity',0)
+      .text('Morrison Bridge')
+
+      svg
+      .append('text')
+      .attr('class','port_streets')
+      .attr('x',710)
+      .attr('y',35)
+      .attr('font-family','Arial')
+      .attr('font-size','.8em')
+      .attr('opacity',0)
+      .text('Burnside Bridge')},10);
 
       function draw1() {
         d3.select("#vis").selectAll("#main").transition().attr("opacity", 0.5);
@@ -1650,7 +1648,7 @@ setTimeout(function(){
       }
 
       function draw7() {
-        d3.selectAll('.port_streets').raise().transition().attr('opacity',0)
+        d3.selectAll('.port_streets').transition().attr('opacity',0)
         d3.selectAll('#datacircle')
         .transition()
         .duration(1000)
@@ -1676,7 +1674,6 @@ setTimeout(function(){
       }
 
       function draw8() {
-        d3.selectAll('.port_streets').raise().transition().attr('opacity',1)
         d3.selectAll("#datacircle")
           .raise()
           .transition()
@@ -1717,7 +1714,7 @@ setTimeout(function(){
               return 0;
             }
           });
-         
+          d3.selectAll('.port_streets').raise().transition().attr('opacity',1)
       }
 
       let activationFunctions = [

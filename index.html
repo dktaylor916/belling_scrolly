@@ -301,6 +301,45 @@
         .attr("height", h)
         .attr("opacity", 1);
       svg
+      .append('g')
+      .append('text')
+      .attr('class','port_streets')
+      .attr('transform', 'rotate(20 ' + -1350 + ' ' + (1900) + ')')
+      .attr('font-family','Arial')
+      .attr('font-size','.8em')
+      .attr('opacity',0)
+      .text('Hawthorne Bridge')
+      svg
+      .append('g')
+      .append('text')
+      .attr('class','port_streets')
+      .attr('transform', 'rotate(20 ' + -1150 + ' ' + (1400) + ')')
+      .attr('font-family','Arial')
+      .attr('font-size','.8em')
+      .attr('opacity',0)
+      .text('Main St')
+      svg
+      .append('g')
+      .append('text')
+      .attr('class','port_streets')
+      .attr('transform', 'rotate(20 ' + -600 + ' ' + (2000) + ')')
+      .attr('font-family','Arial')
+      .attr('font-size','.8em')
+      .attr('opacity',0)
+      .text('Morrison Bridge')
+
+      svg
+      .append('g')
+      .append('text')
+      .attr('class','port_streets')
+      .attr('x',710)
+      .attr('y',35)
+      .attr('font-family','Arial')
+      .attr('font-size','.75em')
+      .attr('opacity',0)
+      .text('Burnside Bridge')
+
+            svg
         .append("rect")
         .attr("class", "cal")
         .attr("x", 10)
@@ -830,7 +869,7 @@
 
       function draw2() {
         d3.selectAll("#dataAnim").remove();
-        d3.selectAll("text").remove();
+        d3.selectAll(".title").remove();
 
         
         var dow = [
@@ -1611,7 +1650,7 @@ setTimeout(function(){
       }
 
       function draw7() {
-
+        d3.selectAll('.port_streets').raise().transition().attr('opacity',0)
         d3.selectAll('#datacircle')
         .transition()
         .duration(1000)
@@ -1637,6 +1676,7 @@ setTimeout(function(){
       }
 
       function draw8() {
+        d3.selectAll('.port_streets').raise().transition().attr('opacity',1)
         d3.selectAll("#datacircle")
           .raise()
           .transition()
@@ -1653,6 +1693,7 @@ setTimeout(function(){
         d3.selectAll(".calLabel").transition().attr("opacity", 0);
         d3.selectAll(".calLabel1").transition().attr("opacity", 0);
         d3.selectAll("#port")
+
           .transition()
           .attr("opacity", function (d) {
             if (d.properties.fclass === "building") {
@@ -1676,6 +1717,7 @@ setTimeout(function(){
               return 0;
             }
           });
+         
       }
 
       let activationFunctions = [

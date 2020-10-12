@@ -11,6 +11,9 @@
     <script src="FileSaver.js"></script>
     <script src="FileSaver.min.js"></script>
     <style>
+      #datatext{
+        max-width: 20px;
+      }
       #tooltip {
         position: absolute;
         display: none;
@@ -216,6 +219,48 @@
           Street
         </h1>
        
+        <section class="step"></section>
+        <h1 style="text-align: center">
+         June 3 - June 8
+        </h1>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo
+        nulla ac nisi gravida lobortis. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Aenean commodo nulla ac nisi gravida lobortis. Aliquam
+        et pulvinar lacus. Vivamus non lectus vel augue fermentum tristique ut
+        eget felis. Phasellus ac dolor urna. Sed vel egestas neque. Cras
+        fermentum erat a sem pellentesque interdum. Integer sagittis ullamcorper
+        nisi et bibendum. Ut gravida pharetra lorem commodo congue. Etiam vitae
+        elit rutrum, ullamcorper dui a, tempor mauris. Fusce tristique interdum
+        velit, non mattis augue eleifend sit amet. Curabitur fermentum neque non
+        diam molestie, vitae lacinia diam tempus.
+        <section class="step"></section>
+        <h1 style="text-align: center">
+         June 14 - June 22
+        </h1>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo
+        nulla ac nisi gravida lobortis. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Aenean commodo nulla ac nisi gravida lobortis. Aliquam
+        et pulvinar lacus. Vivamus non lectus vel augue fermentum tristique ut
+        eget felis. Phasellus ac dolor urna. Sed vel egestas neque. Cras
+        fermentum erat a sem pellentesque interdum. Integer sagittis ullamcorper
+        nisi et bibendum. Ut gravida pharetra lorem commodo congue. Etiam vitae
+        elit rutrum, ullamcorper dui a, tempor mauris. Fusce tristique interdum
+        velit, non mattis augue eleifend sit amet. Curabitur fermentum neque non
+        diam molestie, vitae lacinia diam tempus.
+        <section class="step"></section>
+        <h1 style="text-align: center">
+          July 2
+        </h1>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo
+        nulla ac nisi gravida lobortis. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Aenean commodo nulla ac nisi gravida lobortis. Aliquam
+        et pulvinar lacus. Vivamus non lectus vel augue fermentum tristique ut
+        eget felis. Phasellus ac dolor urna. Sed vel egestas neque. Cras
+        fermentum erat a sem pellentesque interdum. Integer sagittis ullamcorper
+        nisi et bibendum. Ut gravida pharetra lorem commodo congue. Etiam vitae
+        elit rutrum, ullamcorper dui a, tempor mauris. Fusce tristique interdum
+        velit, non mattis augue eleifend sit amet. Curabitur fermentum neque non
+        diam molestie, vitae lacinia diam tempus.
         <section class="step"></section>
         <h1 style="text-align: center">
           Less Letal Rounds occur in the city center, many on Southwest Main
@@ -1017,6 +1062,14 @@
               .attr("r", 5)
               .attr("stroke", "black")
               .attr("stroke-width", 1);
+            svg.selectAll('text')
+            .data(data)
+            .enter()
+            .append('text')
+            .attr('id','datatext')
+            .text(function(d){return d['Brief description of incident']})
+            .attr('opacity',0)
+           
           });
         });
 
@@ -1722,6 +1775,109 @@
         d3.selectAll(".port_streets").raise().transition().attr("opacity", 1);
       }
 
+      function draw10(){
+        d3.selectAll('#datacircle')
+        .transition()
+        .attr('opacity',function(d){
+          if (d['Unnamed: 0'] === '188' || d['Unnamed: 0'] === '248' || d['Unnamed: 0'] === '253'){
+            return 1
+        }
+        else{
+          return 0
+        }})
+       /* d3.selectAll('#datatext')
+        .transition()
+        .attr('opacity',function(d){
+          if (d['Unnamed: 0'] === '188' || d['Unnamed: 0'] === '248' || d['Unnamed: 0'] === '253'){
+            return 1
+        }
+        else{
+          return 0
+        }})
+        .attr("x", function (d) {
+            return projection2([+d.Longitude, +d.Latitude])[0];
+          })
+          .attr("y", function (d) {
+            return projection2([+d.Longitude, +d.Latitude])[1];
+          })
+          .attr('font-size','1em')
+          .attr('text-anchor','start')
+          .attr('text-weight',700)*/
+      }
+      function draw11(){
+        d3.selectAll('#datacircle')
+        .transition()
+        .attr('opacity',function(d){
+          if (d['Unnamed: 0'] === '285' || d['Unnamed: 0'] === '291' || d['Unnamed: 0'] === '296'|| d['Unnamed: 0'] === '297'|| d['Unnamed: 0'] === '298'|| d['Unnamed: 0'] === '304'){
+            return 1
+        }
+        else{
+          return 0
+        }})
+
+        /*d3.selectAll('#datatext')
+        .transition()
+        .attr('opacity',function(d){
+          if (d['Unnamed: 0'] === '285' || d['Unnamed: 0'] === '291' || d['Unnamed: 0'] === '296'|| d['Unnamed: 0'] === '297'|| d['Unnamed: 0'] === '298'|| d['Unnamed: 0'] === '304'){
+            return 1
+        }
+        else{
+          return 0
+        }})
+        .attr("x", function (d) {
+            return projection2([+d.Longitude, +d.Latitude])[0];
+          })
+          .attr("y", function (d) {
+            return projection2([+d.Longitude, +d.Latitude])[1];
+          })
+          .attr('font-size','1em')
+          .attr('text-anchor','start')
+          .attr('text-weight',700)*/
+      }
+      
+      function draw12(){
+        d3.selectAll('#datacircle')
+        .transition()
+        .attr('opacity',function(d){
+          if (d['Unnamed: 0'] === '317'){
+            return 1
+        }
+        else{
+          return 0
+        }})
+        /*d3.selectAll('#datatext')
+        .transition()
+        .attr('opacity',function(d){
+          if (d['Unnamed: 0'] === '317'){
+            return 1
+        }
+        else{
+          return 0
+        }})
+        .attr("x", function (d) {
+            return projection2([+d.Longitude, +d.Latitude])[0];
+          })
+          .attr("y", function (d) {
+            return projection2([+d.Longitude, +d.Latitude])[1];
+          })
+          .attr('font-size','1em')
+          .attr('text-anchor','start')
+          .attr('text-weight',700)*/
+      }
+      
+
+      function draw13(){
+        d3.selectAll('#datacircle')
+        .transition()
+        .attr('opacity',function(d){
+          if (d['Type of Violation'] === 'Less Lethal Round'){
+            return 1
+        }
+        else{
+          return 0
+        }})
+      }
+
       let activationFunctions = [
         draw1,
         draw2,
@@ -1732,9 +1888,13 @@
         draw7,
         draw8,
         draw9,
+        draw10,
+        draw11,
+        draw12
       ];
 
       ///SCOLLER!@#!@#@!#!@#@!#
+   
 
       let scroll = scroller().container(d3.select("#graphic"));
       scroll();
